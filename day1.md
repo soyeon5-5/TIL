@@ -50,8 +50,7 @@
 2. `mkdir`
    - make directory
    - 새 폴더 생성 명령어
-   - 
-
+   
 
 
 
