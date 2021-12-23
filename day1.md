@@ -4,11 +4,8 @@
 
 - CLI (Command Line Interface) : 터미널을 통해 사용자와 컴퓨터가 상호 작용하는 방식
 
-<img src="day1.assets/image-20211221160953377.png" alt="image-20211221160953377" style="zoom:275%;" />
-
 - GUI (Graphic User Interface) : 그래픽을 통해 사용자와 컴퓨터가 상호 작용하는 방식 
 
-<img src="day1.assets/image-20211221161038801.png" alt="image-20211221161038801" style="zoom:67%;" />
 
 ### **2. CLI**
 
@@ -20,7 +17,7 @@
 
   Windows에선 `C 드라이브` 
 
-- **홈 디렉토리(~) **
+- **홈 디렉토리(~)**
 
   현재 로그인된 사용자의 홈 폴더
 
@@ -43,11 +40,11 @@
 
 ### **3. CLI 명령어**
 
-1. `touch`
+1. **`touch`**
    - 파일 생성 명령어
    - 띄어쓰기로 파일 구분 되어 생성
    - 파일 명 앞에 `.` 붙여 *숨김파일* 생성 가능
-2. `mkdir`
+2. **`mkdir`**
    - make directory
    - 새 폴더 생성 명령어
    
