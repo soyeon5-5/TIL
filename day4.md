@@ -30,7 +30,7 @@ pwd
 
 3. **index, column 재배치**
 
-   ```
+   ```python
    emp = pd.read_csv('./code/emp.csv')
    
    emp.ename
