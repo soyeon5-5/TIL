@@ -26,3 +26,9 @@
 3. **git push**
    - 로컬 저장소의 변경 사항을에서 원격 저장소에 업데이트
    - git push <저장소 이름><브랜치이름>
+
+---
+
+- `git pull origin master` 혹은 `git push origin master`를 자주 사용할 경우 : 
+
+  `git pull -u origin master` , `git push -u origin master`로 입력하면 `git pull` , `git push`로 수행 가능
