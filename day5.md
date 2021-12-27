@@ -68,7 +68,7 @@ pd.concat([df1,df2], ignore_index=True)
 
 ### **2. merge**
 
-> 등가 조건만을 사용하여 조인
+​	등가 조건만을 사용하여 조인
 
 ```python
 ''' 
