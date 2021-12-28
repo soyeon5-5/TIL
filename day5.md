@@ -1,3 +1,5 @@
+# 21.12.27 교육
+
 # 1. python pandas groupby
 
 > 그룹연산
