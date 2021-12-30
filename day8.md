@@ -60,5 +60,52 @@
 
      중앙값 0, IQR 1로 맞추는 작업
 
-  
+  ```python
+  # scailing module 불러오기
+  from sklearn.preprocessing import StandardScaler as standard
+  from sklearn.preprocessing import MinMaxScaler as minmax
+  ```
 
+  ```python
+  # iris data loading
+  from sklearn.datasets import load_iris
+  iris_x = load_iris()['data']
+  iris_y = load_iris()['target']
+  ```
+
+  ```python
+  # 1) standard scailing (표준화) : (x-xbar)/sigma
+  
+  # 서로다른 행끼리 계산
+  (iris_x - iris_x.mean(axis=0)) / iris_x.std(axis=0) 
+  
+  df1 = (iris_x - iris_x.mean(axis=0)) / iris_x.std(axis=0)
+  
+  # 함수 사용
+  m_sc = standard()
+  m_sc.fit(iris_x)   # fit : 데이터를 모델에 적합하게 해주는 함수
+  m_sc.transform(iris_x)
+  ```
+
+  ```python
+  # 2) min max scailing (x-x.min())/(x.max()-x.min())
+  
+  (iris_x - iris_x.min(0)) / (iris_x.max(0) - iris_x.min(0))
+  
+  df2 = (iris_x - iris_x.min(0)) / (iris_x.max(0) - iris_x.min(0))
+  
+  df2.max()
+  df2.min()
+  # max=1, min=0 사이 값이 나오게 됨
+  
+  # 함수 사용
+  mm = minmax()
+  mm.fit(iris_x)    # MinMaxScaler() 사용됨
+  mm.transform(iris_x)
+  df2 = mm.transform(iris_x)
+  
+  df2.min()
+  df2.max()
+  ```
+
+  
