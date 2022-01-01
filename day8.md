@@ -108,4 +108,22 @@
   df2.max()
   ```
 
+  ```python
+  # train/test 로 분리되어진 데이터를 표준화
+  from sklearn.model_selection import train_test_split
   
+  train_x, test_x, train_y, test_y = train_test_split(iris_x, iris_y)
+  
+  # 1) train_x, test_x 동일한 기준으로 스케일링
+  mm_2 = minmax()
+  mm_2.fit(train_x)
+  
+  train_mm = mm_2.transform(train_x)
+  test_mm = mm_2.transform(test_x)
+  
+  train_mm.min(0)
+  train_mm.max(0)
+  
+  test_mm.min(0)
+  test_mm.max(0)
+  ```
