@@ -98,7 +98,11 @@ plt.boxplot(day, showfliers=False) # outliers 출력 안함
 plt.show()
 ```
 
+
+
 ---
+
+### *
 
 ```python
 # 인구 구조 현황 그래프
@@ -124,7 +128,11 @@ plt.rc('font', family='Malgun Gothic')
 plt.title(name+'지역 인구 구조 현황')
 plt.plot(result)
 plt.show()
+```
 
+### *
+
+```python
 # 지역의 성별 인구 분포
 
 import matplotlib.pyplot as plt
@@ -157,6 +165,3 @@ plt.barh(range(101), f, label = '여성')
 plt.legend()
 plt.show()
 ```
-
-
-
