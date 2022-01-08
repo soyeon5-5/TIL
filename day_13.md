@@ -56,3 +56,30 @@ print(w)
 print(v)
 ```
 
+
+
+---
+
+- **numpy 라이브러리를 활용한 그래프 그리기**
+
+  ```python
+  # 버블차트
+  import matplotlib.pyplot as plt
+  import random
+  
+  x = []
+  y = []
+  size = []
+  
+  for i in range(200) : 
+      x. append(random.randint(10,100)) # x에 10과 100 사이 랜덤한 정수(int)추가
+      y. append(random.randint(10,100))
+      size.append(random.randint(10,100))
+      
+  plt.scatter(x, y, s=size, c=x, cmap='jet', alpha=0.7)
+  plt.colorbar()
+  plt.show()
+  
+  ```
+
+  
