@@ -60,26 +60,45 @@ print(v)
 
 ---
 
-- **numpy 라이브러리를 활용한 그래프 그리기**
+### **numpy 라이브러리를 활용한 그래프 그리기**
+
+```python
+# 버블차트
+import matplotlib.pyplot as plt
+import random
+
+x = []
+y = []
+size = []
+
+for i in range(200) : 
+    x. append(random.randint(10,100)) # x에 10과 100 사이 랜덤한 정수(int)추가
+    y. append(random.randint(10,100))
+    size.append(random.randint(10,100))
+    
+plt.scatter(x, y, s=size, c=x, cmap='jet', alpha=0.7)
+plt.colorbar()
+plt.show()
+```
+
+- **mask**
+
+  >조건에 부합하는 데이터만 저장
 
   ```python
-  # 버블차트
   import matplotlib.pyplot as plt
-  import random
+  import numpy as np
+  x = np.random.randint(-100, 100, 1000) # 1000개의 랜덤값 추출
+  y = np.random.randint(-100, 100, 1000)
   
-  x = []
-  y = []
-  size = []
-  
-  for i in range(200) : 
-      x. append(random.randint(10,100)) # x에 10과 100 사이 랜덤한 정수(int)추가
-      y. append(random.randint(10,100))
-      size.append(random.randint(10,100))
-      
+  mask1 = abs(x) > 50 # 절대값이 50보다 크면 거름
+  mask2 = abs(y) > 50
+  x=x[mask1+mask2]
+  y=y[mask1+mask2] # mask 1, 2 중 하나라도 만족하는 값 저장
+  size = np.random.rand(len(x)) * 100 # 추천코드
   plt.scatter(x, y, s=size, c=x, cmap='jet', alpha=0.7)
   plt.colorbar()
   plt.show()
-  
   ```
 
   
