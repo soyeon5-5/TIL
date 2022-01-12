@@ -33,7 +33,7 @@ def process_text(text):
     return cleaned_words
 ```
 
-	#### 	2) data 변환
+#### 2) data 변환
 
 ```python
 # text 행렬 변환(token 수)
@@ -62,7 +62,6 @@ print(y_train.values) # 실제값
 #### 	4) 학습 데이터셋 모델 정확도
 
 ```python
-
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix, accuracy_score
 
@@ -76,7 +75,7 @@ confusion_matrix(y_train,  pred) #실제값, 예측값
 accuracy_score(y_train, pred)
 ```
 
-#### 	5) 테스트 셋에서 모델 정확도
+#### 5) 테스트 셋에서 모델 정확도
 
 ```python
 # 테스트 데이터 셋 모델의 정확도 평가
@@ -100,6 +99,65 @@ print(accuracy_score(y_test, pred)) # 예측률
 
 ## 2. ROC Curve
 
-```
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import make_classification
+from sklearn.neighbors import KNeighborsClassifier # k 근접 이웃
+from sklearn.ensemble import RandomForestClassifier # 앙상블_랜덤 포레스트
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_curve
+from sklearn.metrics import roc_auc_score
 ```
 
+#### 1) Roc curve 정의
+
+```python
+# fpt(false positive rate 특이도), tpr(true positive rate : 민감도, 재현율)
+def plot_roc_curve(fpr, tpr):
+    plt.plot(fpr, tpr,  color='purple', label = 'ROC')
+    plt.plot([0,1],[0,1], color='red', linestyle='--')
+    plt.xlabel('false positive rate')
+    plt.ylabel('true positive rate')
+    plt.title('Receiver Operating Characteristics(ROC) Curve')
+    plt.legend()
+    plt.show()
+```
+
+#### 2) data 변환
+
+```python
+data_X, class_label = make_classification(n_samples = 1000, n_classes = 2, weights = [1,1], random_state = 1)
+
+# Train, Test 분류
+train_X, test_X, train_y, test_y = train_test_split(data_X, class_label, test_size = 0.3, random_state = 1)
+
+# random forest model 적용
+model = RandomForestClassifier()
+model.fit(train_X, train_y) # fit은 반드시 train data로
+```
+
+#### 3) 예측값
+
+```python
+# 테스트 데이터 셋으로 예측(확률 예측)
+print(model.predict(test_X)) # 모델 예측 결과값
+model.predict_proba(test_X) # 모델 예측 결과값 확률
+
+# 성능 평가
+# POSITIVE CLASS 만 유지
+probs =  model.predict_proba(test_X)
+probs = probs[:,1]
+
+# auc 구하기
+auc = roc_auc_score(test_y, probs) # test data실제값, 예측값
+```
+
+#### 4) 그래프 그리기
+
+```python
+fpr, tpr, thresholds = roc_curve(test_y, probs)
+plot_roc_curve(fpr,tpr)
+```
