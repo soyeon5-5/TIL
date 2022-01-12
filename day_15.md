@@ -12,7 +12,6 @@ from bs4 import BeautifulSoup
 ser = Service('../chrome_dirver/chromedirver/exe')
 driver = webdriver.Chrome(service = ser)
 
-#url = '' : 불러올 주소 입력
 # ex1
 url = 'https://www.naver.com'
 driver.get(url)
