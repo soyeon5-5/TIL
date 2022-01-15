@@ -207,7 +207,7 @@ rc('font', family = font_name)
 - 저장된 데이터로 **그래프** 그리기
 
   ```python
-  df = pd.read_excel('./files/kto_total_class.xlsx')
+  df = pd.read_excel('./files/kto_total.xlsx')
   
   # 중국인 관광객 그래프
   df_filter = df[df['국적'] == '중국']
