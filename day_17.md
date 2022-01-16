@@ -130,7 +130,7 @@ rc('font', family = font_name)
   condition = (kto_201901_country_newindex['국적'] == '중국')
   kto_201901_country_newindex[condition]
   
-  # 비율 추가
+  # 비율 데이터 추가 및 정렬
   tourist_sum = sum(kto_201901_country_newindex['관광'])
   kto_201901_country_newindex['전체비율(%)'] = \
       round(kto_201901_country_newindex['관광'] / tourist_sum * 100, 1)
