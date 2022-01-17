@@ -221,4 +221,40 @@ rc('font', family = font_name)
   plt.show()
   ```
 
+  - **히트맵**
+  
+    ```python
+    df_pivot = df_filter.pivot_table(values = '관광',
+                                    index = '년도',
+                                    columns = '월')
+    # 히트맵 형식으로 표현하기위해 피벗테이블 이용
+    
+    plt.figure(figsize = (12,8))
+    sns.heatmap(df_pivot,
+               annot = True,  # 값 표시
+                fmt = '.0f',    # 소수점 안나오게
+               )
+    plt.show()
+    ```
+  
+- 나라별 히트맵
+
+  ```python
+  cntry_list = ['중국', '일본', '미국','홍콩', '대만']
+  for cntry in cntry_list :
+      condition = df['국적'] == cntry
+      
+      df_filter = df[condition]
+      
+      df_pivot = df_filter.pivot_table(values = '관광',
+                                      index = '년도',
+                                      columns = '월')
+      plt.figure(figsize = (10, 8))
+      sns.heatmap(df_pivot, annot = True, 
+                  fmt = '.0f', cmap = 'rocket_r')
+      plt.title('{} 관광객 히트맵'.format(cntry))
+      
+      plt.show()
+  ```
+
   
