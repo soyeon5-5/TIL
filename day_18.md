@@ -208,7 +208,7 @@ from selenium.webdriver.common.by import By
                         width = 400,
                         height = 200,
                         relative_scaling = 0.3,    
-              max_words = 100).enerate_from_frequencies(tag_counts_selected)
+              max_words = 100).generate_from_frequencies(tag_counts_selected)
   
   plt.figure(figsize = (10, 8))
   plt.imshow(wordcloud)
