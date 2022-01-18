@@ -170,7 +170,7 @@ from selenium.webdriver.common.by import By
   tag_counts_selected = Counter(tag_total_selected)
   ```
 
-- 그래프 그리기
+- **막대 그래프** 그리기
 
   ```python
   import matplotlib.pyplot as plt
@@ -190,6 +190,30 @@ from selenium.webdriver.common.by import By
   sns.barplot(x = 'counts', y = 'tags',
              data = tag_count_df)
   plt.show()
+  ```
+
+- **워드 클라우드**
+
+  ```python
+  #  ! pip install wordcloud
+  # https://d-e-v.tistory.com/8 참고
+  
+  import platform
+  from wordcloud import WordCloud 
+  
+  font_path = 'c://Windows/Fonts/malgun.ttf'
+  
+  wordcloud = WordCloud(font_path = font_path,
+              background_color = 'white',
+                        width = 400,
+                        height = 200,
+                        relative_scaling = 0.3,    
+              max_words = 100).enerate_from_frequencies(tag_counts_selected)
+  
+  plt.figure(figsize = (10, 8))
+  plt.imshow(wordcloud)
+  plt.axis('off')
+  plt.savefig('./files/word_cloud_class.png')
   ```
 
   
