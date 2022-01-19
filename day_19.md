@@ -39,7 +39,7 @@ locations = list(location_counts_df.index)
       url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(searching)
       
       headers = {
-      "Authorization": "KakaoAK 036bbf7b304354b2fa45802a1087ca4f"}
+      "Authorization": "KakaoAK 여기에 REST KEY 쓰기"}
       
       places = requests.get(url, headers = headers).json()['documents']
       
