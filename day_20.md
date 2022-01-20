@@ -65,6 +65,7 @@ seoul_starbucks_df.to_excel('./files/seoul_starbucks_list.xlsx', index = False)
 #### ## 서울열린데이터광장 OPEN API 활용
 
 ```python
+import requests
 SEOUL_API_AUTH_KEY = '********'
 service = 'GangseoListLoanCompany'
 url = 'http://openapi.seoul.go.kr:8088/{}/json/{}/1/5'.format(SEOUL_API_AUTH_KEY, service)
