@@ -189,5 +189,8 @@ seoul_starbucks_sgg_count = seoul_starbuck.pivot_table(values = '매장수',
                                                       aggfunc = 'count')
 seoul_starbuck_sgg_count = seoul_starbuck_sgg_count.rename(columns = {'매장명' : '스타벅스_매장수'})
 
+seoul_starbucks_sgg_count.to_excel('./files/seoul_sgg_count')
+
+#지도 시각화는 21일에 이어서
 ```
 
