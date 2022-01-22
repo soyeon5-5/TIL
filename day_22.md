@@ -65,6 +65,171 @@ print(title, spec_list, price)
   
       
       return(prod_data)
+  
+  ## 여러페이지 확인 후 반복 되는 부분 keyword(다나와는 상품이름)
+  def get_search_page_url(keyword, page) :
+      url =  'http://search.danawa.com/dsearch.php?query={0}&originalQuery={1}&volumeType=allvs&page={2}&limit=40&sort=saveDESC&list=list&boost=true&addDelivery=N&recommendedSort=Y&defaultUICategoryCode=12215657&defaultPhysicsCategoryCode=1824%7C15247%7C221461%7C0&defaultVmTab=3747&defaultVaTab=522985&tab=goods'.format(keyword, keyword, page)
+      return url
+  ```
+
+  - 여러 페이지 값 가져오기
+
+    ```python
+    import time
+    from tqdm import tqdm_notebook
+    
+    keyword = '무선청소기'
+    total_page = 10
+    prod_data_total = []
+    
+    for page in tqdm_notebook(range(1, total_page+1)):
+        url = get_search_page_url(keyword, page)
+        driver.get(url)
+        
+        time.sleep(5)
+        
+        html = driver.page_source
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        prod_items = soup.select('div.main_prodlist > ul.product_list > li.prod_item ')
+        prod_item_list = get_prod_items(prod_items)
+        
+        prod_data_total = prod_data_total + prod_item_list
+    ```
+
+- 데이터 프레임
+
+  ```python
+  data = pd.DataFrame(prod_data_total)
+  data.columns = ['상품명', '스펙목록', '가격']
+  
+  data.to_excel('./files/1_danawa_crawling_result(청소기).xlsx',
+               index = False)
+  ```
+
+- columns 별 정리
+
+  - 상품명(회사, 상품이름)
+
+    ```python
+    company_list = []
+    product_list = []
+    
+    for title in data['상품명'] :
+        try :
+            title_info = title.split(' ', 1)
+            company_name = title_info[0]
+            product_name = title_info[1]
+    
+        
+        except :
+            company_name = None
+            product_name = None
+            
+        company_list.append(company_name)
+        product_list.append(product_name)
+    ```
+
+  - 스펙 목록(카테고리, 사용시간, 흡입력)
+
+    ```python
+    category_list = []
+    use_time_list = []
+    suction_list = []
+    
+    for spec_data in data['스펙목록'] :
+        spec_list = spec_data.split(' / ')
+                          
+        category = spec_list[0].strip()
+        category_list.append(category)
+        
+        for spec in spec_list :
+            if '사용시간' in spec :
+                use_time_spec = spec
+            elif '흡입력' in spec :
+                suction_spec = spec
+        
+        use_time_value = use_time_spec.split(': ')[1].strip()
+        suction_value = suction_spec.split(': ')[1].strip()
+        use_time_list.append(use_time_value)
+        suction_list.append(suction_value)
+    ```
+
+    - 사용시간 통일
+
+      ```python
+      def convert_time_minute(time) :
+          
+          try :
+              if '시간' in time :
+                  hour = time.split('시간')[0]
+                  if '분' in time :
+                      minute = time.split('시간')[-1].split('분')[0]
+                  else :
+                      minute = 0
+              else :        
+                  hour = 0
+                  minute = time.split('분')[0]
+              
+              return int(hour) * 60 + int(minute)
+              
+          except :
+              return None
+              
+      
+      new_use_time_list = []
+      for time in use_time_list :
+          value = convert_time_minute(time)
+          new_use_time_list.append(value) 
+      ```
+
+    - 흡입력 단위 통일
+
+      ```python
+      def get_suction(value) :
+          try :
+              value = value.upper()
+              
+              if 'AW' in value or 'W' in value :
+                  result = value.replace('A', '').replace('W', '').replace(',', '')
+                  result = int(result)
+                  
+              elif 'PA' in value :
+                  result = value.replace('PA', '').replace(',', '')
+                  result = int(result)/100
+                  
+              else :
+                  result = None
+              return result
+              
+          except :
+              return None
+              
+      
+      new_suction_list = []
+      
+      for power in suction_list :
+          value = get_suction(power)
+          new_suction_list.append(value)
+      ```
+
+  - None 값 drop
+
+    ```python
+    data.replace('', np.nan, inplace = True)
+    data.dropna(inplace = True)
+    ```
+
+- 데이터프레임 수정
+
+  ```
+  pd_data = pd.DataFrame()
+  pd_data['카테고리'] = category_list
+  pd_data['회사명'] = company_list
+  pd_data['제품'] = product_list
+  pd_data['가격'] = data['가격'].astype(np.int64)
+  pd_data['사용시간'] = new_use_time_list
+  pd_data['흡입력'] = new_suction_list
   ```
 
   
