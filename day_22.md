@@ -232,4 +232,83 @@ print(title, spec_list, price)
   pd_data['흡입력'] = new_suction_list
   ```
 
+- 조건
+
+  ```python
+  condition = pd_data['카테고리'] == '핸디/스틱청소기'
+  
+  pd_data_final = pd_data[condition]
+  len(pd_data_final)
+  '''
+  pd_data_final['가격'] = pd_data_final['가격'].replace('', np.nan)
+  pd_data_final.dropna(inplace = True)
+  # 워닝 참고자료
+  #https://velog.io/@cjw9105/Python-SettingWithCopyWarning-%EC%9B%90%EC%9D%B8
+  '''
+  pd_data_final.dropna(inplace = True)
+  
+  # 저장 및 불러오기
+  pd_data_final.to_excel('./files/2_danawa_data_final.xlsx', index = False)
+  danawa_data = pd.read_excel('./files/2_danawa_data_final.xlsx')
+  
+  # 평균값
+  price_mean_value = danawa_data['가격'].mean()
+  suction_mean_value = danawa_data['흡입력'].mean()
+  use_time_mean_value = danawa_data['사용시간'].mean()
+  
+  # 조건
+  condition_data = danawa_data [
+      (danawa_data['가격'] <= price_mean_value) & 
+      (danawa_data['흡입력'] >= suction_mean_value) & 
+      (danawa_data['사용시간'] >= use_time_mean_value)]
+  ```
+
+- **그래프**
+
+  ```python
+  from matplotlib import font_manager, rc
+  import matplotlib.pyplot as plt
+  import seaborn as sns
+  
+  rc('font', family = 'Malgun Gothic')
+  
+  
+  plt.figure(figsize = (20, 10))
+  sns.scatterplot(x = '흡입력', y = '사용시간',
+                 size = '가격', hue = danawa_data['회사명'],
+                 data = danawa_data, legend = False,
+                 sizes = (10, 1000))
+  plt.hlines(use_time_mean_value, 0, 400, color = 'red',
+            linestyle = 'dashed', linewidth = 1)
+  plt.vlines(suction_mean_value, 0, 120, color = 'red',
+           linestyle = 'dashed', linewidth = 1)
+  
+  plt.show()
+  ```
+
+- 사용시간, 흡입력 기준 top20 **그래프**
+
+  ```python
+  top_list = danawa_data.sort_values(["사용시간","흡입력"], ascending = False)
+  
+  chart_data_selected = top_list[:20]
+  
+  plt.figure(figsize=(20, 10))
+  plt.title("무선 핸디/스틱청소기 TOP 20")
+  sns.scatterplot(x = '흡입력', 
+                    y = '사용시간', 
+                    size = '가격', 
+                    hue = chart_data_selected['회사명'], 
+                    data = chart_data_selected, sizes = (100, 2000),
+                    legend = False)
+  
+  for index, row in chart_data_selected.iterrows():
+      x = row['흡입력']
+      y = row['사용시간']
+      s = row['제품'].split(' ')[0]
+      plt.text(x, y, s, size=20)
+      
+  plt.show()
+  ```
+
   
