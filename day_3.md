@@ -29,13 +29,3 @@ df1
 (df1.iloc[:,0] >= 10).sum()   #조건에 만족하는 개수 확인
 
 ```
-
----
-
-## LINUX
-
-1. **Oracle VM VirtulBox** 설치
-2. **centos Linux** 설치
-3. **Virtual box** 설정
-4. **linux** 생성
-5. **게스트 확장 cd** 실행 및 설치

@@ -1,26 +1,31 @@
 # 21.12.24 교육
 ## pandas 정렬 sort()
 
+```python
 import pandas as pd
 import numpy as np
 from pandas import Series, DataFrame
+```
 
-pwd
 ### 현재 위치(present woriking directory)
 
  pd.read_csv('emp.csv')
-# 현재 폴더 열기
+
+#### 현재 폴더 열기
+
 ` pd.read_csv('./code/emp.csv')`
 
-- 현재 폴더의 하위 폴더인 code의 emp.csv 읽어줘 
+- 현재 폴더의 하위 폴더인 code의 emp.csv
 
 `pd.read_csv("C:/Users/username/code/emp.csv") `
 
-- 절대주소로 해도됨
+- 절대주소
+
+  
 
 1. **os.getcwd()**
 
-   get current working directory 현재 작업폴더를 가져와라
+   get current working directory 현재 작업폴더 불러오기
 
 2. **sort() 정렬**
 
@@ -50,14 +55,14 @@ pwd
    
    ```
 
-> ename을 기준으로 정렬, ename이 index가 됨
-
 4. **sort_values**
 
-   Series, DataFrame 호출 가능
-
-   본문 값(value)으로 정렬
-
+   >ename을 기준으로 정렬, ename이 index
+   >
+   >Series, DataFrame 호출 가능
+   >
+   >본문 값(value)으로 정렬
+   
    ```python
    emp.sort_values(by = 'sal')
    # sal 기준 오름차순 정렬
@@ -69,5 +74,5 @@ pwd
    # deptno 기준 먼저 배열 후 sal 기준 배열
    emp.sort_values(['deptno','sal'], ascending = [True, False])
    ```
-
+   
    
