@@ -1,6 +1,6 @@
 # 22.01.24
 
-## 비전
+## 컴퓨터 비전(Computer Vision)
 
 #### 1. 2차원 -> 디지털화
 
@@ -14,11 +14,13 @@
 
      pixel은 왼쪽 위가 0,0
 
-     I(0,0) 으로 표현
+     I(0,0) 으로 표현, I는 intensity
 
      Pixel per Inch(PPI)
 
-  2. Dpi(dots per inch)Volume Element(Voxel)
+  2. Dpi(dots per inch)
+
+  2. Volume Element(Voxel)
 
      MIR, CT
 
@@ -49,9 +51,9 @@
 
 - **표현 방법**
 
-  영상 좌표(x, y)
+  영상 좌표(x, y) : OpenCV
 
-  행렬 좌표(y, x)
+  행렬 좌표(y, x) : np.array
 
 - **유형(mode)**
 
@@ -63,7 +65,7 @@
 
      Dithering : 점의 밀도로 표현, 눈의 착시 이용
 
-     Halftoning : 공간적 통합작용 이용, 연속적인 이미지를 패턴 혹은 점으로 표현하는 과정
+     Halftoning : 공간적 통합작용 이용, 연속적인 이미지를 패턴 혹은 점으로 표현하는 과정, 프린팅에서 사용
 
   2. grayscale image
 
@@ -77,12 +79,16 @@
 
        한 픽셀에 각각의 RGB값이 나오면서 색상 표현
 
+       OpenCV : BGR
+
+       Matplotlib : RGB
+
      - Indexed color image 
 
        한 픽셀에서 RGB값이 동시에 나오면서 색상표현
 
        gif 파일, 영상처리 X
-
+  
   4. multi-spectral image
-
+  
      적외선 사진 + 위성 사진 과 같이 multi image
