@@ -156,7 +156,7 @@ h, w = img1.shape[:2]
 img2_seg = img2[350:350+h, 200:200+w]
 
 # 3. scr 영상 thresholding
-# grayscalar로 해두면 편리
+# grayscale로 해두면 편리
 img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
 ret, mask = cv2.threshold(img1_gray, 240, 255, cv2.THRESH_BINARY_INV)
 
