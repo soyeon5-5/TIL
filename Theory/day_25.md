@@ -38,7 +38,7 @@
 
           Intensity 값들이 일정한 contrast를 가짐
 
-          ![image-20220126175608844](day_25.assets/image-20220126175608844.png)
+          ![image-20220126183434429](day_25.assets/image-20220126183434429.png)
 
        2. sliding
 
