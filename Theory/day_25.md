@@ -38,7 +38,11 @@
 
           Intensity 값들이 일정한 contrast를 가짐
 
-          ![image-20220126183434429](day_25.assets/image-20220126183434429.png)
+          O(x,y) = [ (Smx - Smn) / (Imx - Imn)] * [I(x,y) - Imn] + Smn
+
+          변경할 값의 최대값 Smx
+
+          변경할 값의 최소값 Smn
 
        2. sliding
 
