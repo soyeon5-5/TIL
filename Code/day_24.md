@@ -132,7 +132,8 @@ import sys
   
   ## 인덱스 이용해서도 copyTo 와 같이 가능
   ## dst[mask > 0] = src[mask > 0]
-  
+  ## 색상 변경도 가능
+  ## dst[mask > 0] = (0, 0, 255)
   
   cv2.imshow('src', src)
   # cv2.imshow('mask', mask)
@@ -156,7 +157,7 @@ h, w = img1.shape[:2]
 img2_seg = img2[350:350+h, 200:200+w]
 
 # 3. scr 영상 thresholding
-# grayscale로 해두면 편리
+# grayscale로 변경
 img1_gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
 ret, mask = cv2.threshold(img1_gray, 240, 255, cv2.THRESH_BINARY_INV)
 
