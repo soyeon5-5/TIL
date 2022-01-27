@@ -113,8 +113,96 @@ cv2.destroyAllWindows()
 
 #### 3. 카메라와 동영상
 
+```python
+# 내 웹캠 영상 불러오기
+cap = cv2.VideoCapture(0)  # 0 대신 동영상 파일을 열어도 가능
+
+if not cap.isOpened():
+    print('Videocap open failed')
+    sys.exit()
+    
+
+# w, h, fps 입력, 직접 입력도 가능함
+w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+fps = int(cap.get(cv2.CAP_PROP_FPS))
+#frame per second, 내 컴퓨터 확인
+fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+
+# 비디오 열기 및 저장하기
+out = cv2.VideoWriter('ouput.avi', fourcc, fps, (w, h))
+
+while True :
+    # T/F가 ret, frame에 영상들어옴
+    ret, frame = cap.read()
+    
+    if not ret :
+        print('video read failed')
+        break
+    
+    edge = cv2.Canny(frame, 30, 150)
+    
+     cv2.imshow('img', frame)
+     cv2.imshow('img', edge)
+
+    
+    out.write(frame)
+    
+    # while 돌수 있게 빠르게 돌리기
+    # 영상이 들어오는 속도보다 빨라야 안 끊김
+    if cv2.waitKey(20) == 27 :
+        break
+        
+cap.release()
+out.release()
+cv2.destroyAllWindows()
 ```
-```
 
+- Edge 저장하기
 
+  ```python
+  cap = cv2.VideoCapture(0)
+  
+  if not cap.isOpened():
+      print('Videocap open failed')
+      sys.exit()
+      
+  
+  w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+  h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+  fps = int(cap.get(cv2.CAP_PROP_FPS))
+  
+  fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+  
+  
+  out_e = cv2.VideoWriter('ouput_edge.avi', fourcc, fps, (w, h))
+  
+  while True :
+      ret, frame = cap.read()
+      
+      if not ret :
+          print('video read failed')
+          break
+          
+     ################################## 
+      edge = cv2.Canny(frame, 30, 150)
+      edge_inv = 255-edge
+      #혹은 edge_inv = ~edge
+      edge_color = cv2.cvtColor(edge_inv,cv2.COLOR_GRAY2BGR)
+      #컬러형식만 저장이됨
+     ################################## 
+       cv2.imshow('img', frame)
+       cv2.imshow('img', edge_color)
+  
+      
+      out_e.write(edge_color)
+      
+      if cv2.waitKey(20) == 27 :
+          break
+          
+  cap.release()
+  out_e.release()
+  cv2.destroyAllWindows()
+  ```
 
+  
