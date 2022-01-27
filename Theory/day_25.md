@@ -48,13 +48,15 @@
 
           Intensity 값에 일정한 값들을 더하거나 빼는 것
 
-       3. equalization
+       3. equalization(평활화)
 
           **균일 분포(uniform distribution) 형태로 만듦**
 
           Intensity 값의 개수가 같아지는 것
 
-          CDF(Cummulative Distribution Function) 이 linear(기울기 1)한 직선을 가짐
+          PDF(Probability Density Function): 확률밀도함수
+
+          CDF(Cummulative Distribution Function) : 누적분포함수가 linear한 선을 가짐
 
           - Deriving Algorithm
 
@@ -63,7 +65,6 @@
             E를 구하는 방법
 
             e.g ) 3비트라 할때,
-
+          
             E(2) = (7 / 전체 누적값(총 픽셀값)) *  I(2)까지의누적값
-
     
