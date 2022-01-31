@@ -8,9 +8,7 @@ import cv2
 import sys
 ```
 
-
-
-### EVENT
+### 1.EVENT
 
 #### 1. 키보드 이벤트
 
@@ -123,4 +121,34 @@ cv2.destroyAllWindows()
 ```
 
 
+
+---
+
+### 2. Point processing(영상의 화소처리)
+
+- Sliding
+
+  ```python
+  src = cv2.imread('./fig/lenna.bmp', cv2.IMREAD_GRAYSCALE)
+  
+  if src is None:
+      print('image read failed')
+      sys.exit()
+  
+  # 오버 플로우 막기
+  #float 연산 후 uint8로 바꿔주기
+  # dst = np.clip(src + 100., 0, 255).astype(np.uint8)    
+  # -> 한방에 해결
+  dst = cv2.add(src, 100)
+  
+  cv2.imshow('src', src)
+  cv2.imshow('dst', dst)
+  
+  
+  cv2.waitKey()
+  
+  cv2.destroyAllWindows()
+  ```
+
+  
 
