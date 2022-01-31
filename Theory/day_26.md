@@ -74,12 +74,30 @@
 
    결과 픽셀에 정확히 대응되는 입력 픽셀이 없을 때, 주변 픽셀들을 고려하여 새로운 값을 생성하는 방법
 
-   - Nearest neighbor interpolation
+   - Nearest neighbor interpolation(최근접 보간)
 
-   - Neighbor aberaging interpolation
+     가장 가까운 원시 픽셀값으로 선택
 
-   - Bilinear interpolation
+     선택은 빠르나 질이 좋지 않음
 
-   - Higher order interpolation
+   - Neighbor aberaging interpolation(근접 평균 보간)
+
+     근처 값(4개)의 평균 값으로 선택
+
+     연산량 증가, Nearst보다 조금 더 질이 좋아짐
+
+   - Bilinear interpolation(성형 보간)
+
+     근처 값(4개) 픽셀들에 가까운 정도로 가중치를 부여한 값들의 합으로 선택
+
+     연산 속도와 영상의 질이 괜찮음
+
+   - Higher order interpolation(고차항 보간)
+
+     고차항 형태로 계산되어진 값
+
+     시간이 오래 걸림
+
+     b-spline interpolation
 
      
