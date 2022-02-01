@@ -148,7 +148,90 @@ cv2.destroyAllWindows()
   cv2.waitKey()
   
   cv2.destroyAllWindows()
+  
+  
+  ## 컬러일때
+  src = cv2.imread('./fig/lenna.bmp', cv2.IMREAD_COLOR)
+  
+  if src is None:
+      print('image read failed')
+      sys.exit()
+  
+  # 컬라일때는 3개 다 해주고, 4번째는 알파채널, 
+  # 색상부분에 이미지 넣으면 이미지 믹싱
+  dst = cv2.add(src, (100, 100, 100, 0)) 
+  
+  #이건 그냥 다 더해줌
+  # dst = np.clip(src + 100, 0, 255).astype(np.uint8) 
+  
+  cv2.imshow('src', src)
+  cv2.imshow('dst', dst)
+  
+  
+  cv2.waitKey()
+  
+  cv2.destroyAllWindows()
+  ```
+
+- 산술연산1
+
+  ```python
+  import matplotlib.pyplot as plt
+  
+  src1 = cv2.imread('./fig/lenna256.bmp', cv2.IMREAD_GRAYSCALE)
+  # h, w = src1.shape[:2]
+  src2 = np.zeros_like(src1, dtype = np.uint8)
+  
+  cv2.circle(src2, (128, 128), 100, 200, -1)
+  cv2.circle(src2, (128, 128), 50, 50, -1)
+  
+  dst1 = cv2.add(src1, src2)
+  
+  # src에 0.5 곱, src2에 0.5 곱, 플러스값, float연산으로!
+  dst2 = cv2.addWeighted(src1, 0.7, src2, 0.3, 0.0)
+  # 앞-뒤
+  dst3 = cv2.subtract(src1, src2)
+  # 앞-뒤 절댓값
+  dst4 = cv2.absdiff(src1, src2)
+  
+  plt.figure(figsize = (12, 6))
+  plt.subplot(231), plt.imshow(src1, cmap = 'gray'), plt.title('src1'), plt.axis('off')
+  plt.subplot(232), plt.imshow(src2, cmap = 'gray'), plt.title('src2'), plt.axis('off')
+  plt.subplot(233), plt.imshow(dst1, cmap = 'gray'), plt.title('add'), plt.axis('off')
+  plt.subplot(234), plt.imshow(dst2, cmap = 'gray'), plt.title('addweigted'), plt.axis('off')
+  plt.subplot(235), plt.imshow(dst3, cmap = 'gray'), plt.title('subtract'), plt.axis('off')
+  plt.subplot(236), plt.imshow(dst4, cmap = 'gray'), plt.title('absdiff'), plt.axis('off')
+  ```
+
+- 산술연산 2
+
+  ```python
+  src1 = np.zeros((256, 256), np.uint8)
+  cv2.rectangle(src1, (10, 10), (127, 248), 255, -1)
+  
+  src2 = np.zeros((256, 256), np.uint8)
+  cv2.circle(src2, (128, 128),100, 255, -1)
+  
+  #픽셀끼리 연산
+  dst_bit_and = cv2.bitwise_and(src1, src2)
+  dst_bit_or = cv2.bitwise_or(src1, src2)
+  
+  # 전체-교집합
+  dst_bit_xor = cv2.bitwise_xor(src1, src2)
+  
+  dst_bit_not = cv2.bitwise_not(src1)
+  
+  
+  
+  
+  plt.figure(figsize = (12, 6))
+  plt.subplot(231), plt.axis('off'), plt.imshow(src1, 'gray'), plt.title('src1')
+  plt.subplot(232), plt.axis('off'), plt.imshow(src2, 'gray'), plt.title('src2')
+  plt.subplot(233), plt.axis('off'), plt.imshow(dst_bit_and, 'gray'), plt.title('dst_bit_and')
+  plt.subplot(234), plt.axis('off'), plt.imshow(dst_bit_or, 'gray'), plt.title('dst_bit_or')
+  plt.subplot(235), plt.axis('off'), plt.imshow(dst_bit_xor, 'gray'), plt.title('dst_bit_xor')
+  plt.subplot(236), plt.axis('off'), plt.imshow(dst_bit_not, 'gray'), plt.title('dst_bit_not_src1')
+  plt.show()
   ```
 
   
-
