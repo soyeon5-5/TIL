@@ -141,4 +141,108 @@ for idx in starbucks_map.index :
   
   ```
 
+- 구역별 지도 시각화1
+
+  ```python
+  seoul_sgg_stat = pd.read_excel('./files/seoul_sgg_stat_class.xlsx')
+  seoul_sgg_stat['주민등록인구'] = seoul_sgg_stat['주민등록인구'].str.replace(',', "").astype(np.int32)
+  seoul_sgg_stat['사업체수'] = seoul_sgg_stat['사업체수'].str.replace(',', "").astype(np.int32)
+  seoul_sgg_stat['종사자수'] = seoul_sgg_stat['종사자수'].str.replace(',', "").astype(np.int32)
   
+  seoul_sgg_stat['인구당_매장수'] = (seoul_sgg_stat['스타벅스_매장수']/\
+  seoul_sgg_stat['주민등록인구'])
+  
+  seoul_sgg_stat['사업체수_매장수'] = (seoul_sgg_stat['스타벅스_매장수']/\
+  seoul_sgg_stat['사업체수'])
+  
+  seoul_sgg_stat['종사자수_매장수'] = (seoul_sgg_stat['스타벅스_매장수']/\
+  seoul_sgg_stat['종사자수'])
+  
+  seoul_sgg_stat['인구당_매장수_norm'] = seoul_sgg_stat['인구당_매장수']/\
+  seoul_sgg_stat['인구당_매장수'].max()
+  
+  seoul_sgg_stat['사업체수_매장수_norm'] = (seoul_sgg_stat['사업체수_매장수']/\
+  seoul_sgg_stat['사업체수_매장수'].max())
+  
+  seoul_sgg_stat['종사자수_매장수_norm'] = (seoul_sgg_stat['종사자수_매장수']/\
+  seoul_sgg_stat['종사자수_매장수'].max())
+  
+  seoul_sgg_stat.info()
+  seoul_sgg_stat.head
+  
+  # 인구당 매장수
+  sgg_geojson_file_path = './maps/seoul_sgg.geojson'
+  seoul_sgg_geo_2 = json.load(open(sgg_geojson_file_path, encoding = 'utf-8'))
+  
+  
+  starbucks_choropleth =folium.Map(width = 400, height = 400,
+                                  location=[37.573050, 126.979189],
+                                  tiles = 'CartoDB positron',
+                                  zoom_start = 11)
+  
+  
+  folium.Choropleth(seoul_sgg_geo_2,
+                   data = seoul_sgg_stat,
+                   columns = ['시군구명', '인구당_매장수'],
+                   key_on = 'properties.SIG_KOR_NM',
+                    fill_color = 'YlOrRd',
+                    fill_opacity = 0.5,
+                    line_opacity = 0.7).add_to(starbucks_choropleth)
+  
+  starbucks_choropleth
+  ```
+
+- 구역별 지도 시각확2
+
+  ```python
+  # 사업체수 와 매장수
+  sgg_geojson_file_path = './maps/seoul_sgg.geojson'
+  seoul_sgg_geo_2 = json.load(open(sgg_geojson_file_path, encoding = 'utf-8'))
+  
+  
+  starbucks_choropleth =folium.Map(width = 400, height = 400,
+                                  location=[37.573050, 126.979189],
+                                  tiles = 'CartoDB positron',
+                                  zoom_start = 11)
+  
+  # starbucks_choropleth
+  
+  folium.Choropleth(seoul_sgg_geo_2,
+                   data = seoul_sgg_stat,
+                   columns = ['시군구명', '사업체수_매장수'],
+                   key_on = 'properties.SIG_KOR_NM',
+                    fill_color = 'YlOrRd',
+                    fill_opacity = 0.5,
+                    line_opacity = 0.7).add_to(starbucks_choropleth)
+  
+  starbucks_choropleth
+  ```
+
+- 구역별 지도 시각화3
+
+  ```python
+  # 종사자 수 당 매장수
+  sgg_geojson_file_path = './maps/seoul_sgg.geojson'
+  seoul_sgg_geo_2 = json.load(open(sgg_geojson_file_path, encoding = 'utf-8'))
+  
+  
+  starbucks_choropleth =folium.Map(width = 400, height = 400,
+                                  location=[37.573050, 126.979189],
+                                  tiles = 'CartoDB positron',
+                                  zoom_start = 11)
+  
+  # starbucks_choropleth
+  
+  folium.Choropleth(seoul_sgg_geo_2,
+                   data = seoul_sgg_stat,
+                   columns = ['시군구명', '종사자수_매장수'],
+                   key_on = 'properties.SIG_KOR_NM',
+                    fill_color = 'YlOrRd',
+                    fill_opacity = 0.5,
+                    line_opacity = 0.7).add_to(starbucks_choropleth)
+  
+  starbucks_choropleth
+  ```
+
+  
+
