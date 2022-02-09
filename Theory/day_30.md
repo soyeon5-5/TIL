@@ -141,6 +141,18 @@
   회귀분석
 
   확률분석
+  
+- 상관분석(correlation analysis)
+
+  - 상관계수(correlation coeffieint), r
+
+    범위 : -1≤r≤1
+
+    수식 계산 혹은
+
+    Pearson's correlation 사용 - Pandas의 corr() 함수 사용
+
+    
 
 
 
