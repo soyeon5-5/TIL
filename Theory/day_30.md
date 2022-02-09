@@ -123,3 +123,26 @@
      레이블이 없는 데이터에 대한 레이블 추론
 
      방법론 : K-means clustering, DBSCAN, etc
+     
+  4. 차원 축소
+  
+     많은 feature로 구성된 다차원 데이터의 차원을 축소하여 새로운 차원의 데이터 생성
+  
+     방법론 : PCA(Principal Component Analysis), LSA(Latent Semantic Analysis)
+
+### 머신러닝과 통계학
+
+새로운 입력값에 대한 결과를 예측하는 과정에서 확률 이론 활용
+
+- 기계학습에서 통계
+
+  상관관계분석
+
+  회귀분석
+
+  확률분석
+
+
+
+
+
