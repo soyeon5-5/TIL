@@ -28,9 +28,38 @@
 
       어떤 모양의 데이터든 계산 가능
 
+      IG(Information gain) 이 큰 방향, 영역의 순도(homogeneity)증가, 불순도(impurity) 감소 하는 방향으로 분할
+
+      IG = E(Parent) - E(Parent|Motivation)
+
       - 장점
 
-        
+        시각화될 수 있어 이해하기 쉽고 해석이 간단
+
+        전처리 절차가 간단
+
+        데이터 증가에 따른 트리의 횟수는 log로 증가
+
+        여러 결과 값이 나오는 분석 가능
+
+        White-box 모델
+
+        통계학적 추정을 통한 모델의 신뢰성 평가 가능
 
       - 단점
 
+        복잡한 트리가 생성되어 데이터 일반화를 잘 못함
+
+        불안정 - 약간의 데이터 변화에도 다른 결정트리 형성될 수 있음
+
+        지역 최적화 방법
+
+        XOR과 같은 문제 표현 어려움
+
+      - 순도 계산 방법
+
+        1.Entropy - classification 모델
+
+        2.Gini index - classification 모델
+
+        3.MSE(Mean square error) - regression 모델
