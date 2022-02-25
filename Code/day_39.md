@@ -52,4 +52,35 @@
    q2_out.loc[q2_out.mape.idxmin(), :]
    ```
 
+3. 경력과 최근 이직시 공백기간의 상관관계를 보고자 한다. 남여별 피어슨 상관계수를 각각 산출하고 더 높은 상관계수를 기술하시오.
+
+   ```python
+   data3.goupby('gender')[['experience','last_new_job']].corr()
+   ```
+
+4. 기존 데이터 분석 관련 직무 경험과 이직 의사가 서로 관련이 있는지 알아보고자 한다. 이를 위해 독립성 검정을 실시하고 해당 검정의 p-value를 기술하시오.
+   검정은 STEM 전공자를 대상으로 한다.
+   검정은 충분히 발달된 도시(도시 개발 지수가 제 85 백분위수 초과)에 거주하는 사람을 대상으로 한다. 이직 의사 여부(target)은 문자열로 변경 후 사용한다.
+
+   ```python
+   # 1. 데이터 타입 변경
+   q3 = data3.copy()
+   q3['target'] = q3['target'].astype(str)
+   
+   # 2. 조건으로 데이터 필터링
+   q3['major_discipline'].value_count()
+   
+   base=q3['city_development_index'].quantile(0.85)
+   
+   q3_1 = q3[(q3['major_discipline']=='STEM')&
+            (q3['city_development_index']>base)]
+   
+   # 3. 범주형 데이터 독립성 검정 : 카이스퀘어
+   from scipy.stats import chi2_contingency
+   
+   q3_tab = pd.crosstab(index=q3_1.relevent_experience,
+                       columns=q3_1.target)
+   q3_out = chi2_contingency(q3_tab)[1]
+   ```
+
    
