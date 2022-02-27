@@ -83,4 +83,21 @@
    q3_out = chi2_contingency(q3_tab)[1]
    ```
 
+5. 인사팀에서는 어떤 직원이 이직 의사를 가지고 있을지
+   사전에 파악하고 1:1 면담 등 집중 케어를 하고자 한다. 이를 위해 의사결정 나무를 활용하여 모델을 생성하고 그 정확도를 확인하시오. target을 종속변수로 하고 나머지 변수 중 String이 아닌 변수를 독립변수로 한다. 학습은 전부 기본값으로 실시한다.
+   평가는 "Dataset_13_test.csv" 데이터로 실시한다.
+
+   ```python
+   from sklearn.tree import DecisionTreeClassifier
    
+   x+var = data3.columns[data13.dtypes != 'object'].drop('target')
+   
+   dt = DecisionTreeClassifier(random_state=123).fit(data3[x_var], data3.target)
+   
+   test = pd.read_csv('Dataset_13_test.csv')
+   
+   dt.score(test[x_var],test.target)
+   ```
+
+   
+
