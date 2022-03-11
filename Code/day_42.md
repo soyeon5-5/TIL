@@ -309,4 +309,7 @@ plt.show()
 
 1. 특성 추출(Feature Extraction)
 
+   ```
+   ```
+
    
