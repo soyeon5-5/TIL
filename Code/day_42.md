@@ -309,7 +309,35 @@ plt.show()
 
 1. 특성 추출(Feature Extraction)
 
-   ```
+   ```python
+   from tensorflow.keras.applications.vgg16 import VGG16
+   
+   conv_base = VGG16(weights = 'imagenet',
+                    include_top = False,
+                    input_shape=(150,150,3))
+   
+   conv_base.summary
    ```
 
-   
+   1. 데이터 준비
+
+      ```python
+      import os
+      import numpy as np
+      from kears.preprocessing.image import ImageDataGenerator
+      ```
+
+      ```python
+      !unzip 'cats_and_dogs_small.zip'
+      ```
+
+      ```python
+      base_dir = './cats_and_dogs_small'
+      validation_dir = os.path.join(base_dir, 'validation')
+      test_dir = os.path.join(base_dir, 'test')
+      
+      datagen = ImageDataGenerator(rescale=1./255)
+      batch_size =20
+      ```
+
+      
