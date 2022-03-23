@@ -166,7 +166,91 @@
    # 과적합이 빠르게 시작 -> 훈련 샘플수가 작아서
    ```
 
-   
+
+- Withdout pretrained word embeddings
+
+  - 모델 구성
+
+    ```python
+    from keras.models import Sequential 
+    from keras.layers import Embedding, Flatten, Dense
+    
+    model = Sequential() 
+    
+    model.add(Embedding(max_words, embedding_dim, input_length=maxlen))
+    model.add(Flatten()) 
+    model.add(Dense(32, activation='relu')) 
+    model.add(Dense(1, activation='sigmoid'))
+    
+    model.summary()
+    ```
+
+    ```python
+    model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
+    
+    history = model.fit(x_train, y_train, 
+     epochs=10, 
+     batch_size=32, 
+     validation_data=(x_val, y_val))
+    ```
+
+  - 그래프 확인
+
+    ```python
+    acc = history.history['acc']
+    val_acc = history.history['val_acc']
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    
+    epochs= range(1, len(acc)+1)
+    
+    plt.plot(epochs,acc, 'bo', label='Training acc')
+    plt.plot(epochs, val_acc, 'b', label='Validation acc')
+    plt.title('Training and validation accuracy')
+    plt.legend()
+    
+    plt.figure()
+    
+    plt.plot(epochs, loss, 'bo', label='Training loss')
+    plt.plot(epochs, val_loss, 'b', label='Validation loss')
+    plt.title('Training and validation loss') 
+    plt.legend()
+    
+    plt.show()
+    ```
+
+  - test set으로
+
+    ```python
+    test_dir = os.path.join(imdb_dir, 'test')
+    
+    labels=[]
+    texts=[]
+    
+    for label_type in ['neg', 'pos']: 
+      dir_name = os.path.join(test_dir, label_type)
+      for fname in sorted(os.listdir(dir_name)): 
+        if fname[-4:] == '.txt': 
+          f = open(os.path.join(dir_name, fname))
+          texts.append(f.read()) 
+          f.close() 
+          if label_type == 'neg': 
+            labels.append(0)
+          else: 
+            labels.append(1)
+    
+    sequences= tokenizer.texts_to_sequences(texts)
+    x_test = pad_sequences(sequences, maxlen = maxlen)
+    y_test = np.asarray(labels)
+    ```
+
+    ```python
+    # model 확인
+    model.load_weights('pre_trained_glove_model.h5')
+    model.evaluate(x_test, y_test)
+    ```
+
+  
 
 
 
