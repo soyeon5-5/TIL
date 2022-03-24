@@ -245,10 +245,20 @@
     ```
 
     ```python
-    # model 확인
+    # 평가
     model.load_weights('pre_trained_glove_model.h5')
     model.evaluate(x_test, y_test)
     ```
+
+- Feed-forward network
+
+  ```python
+  state_t =0
+  # 초기에는 이전 출력 없으므로 0
+  for input_t in input_sequence:
+      output_t = activation(dot(W,input_t)+dot(U, state_t)+b)
+      state_t = output_t
+  ```
 
   
 
