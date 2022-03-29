@@ -175,9 +175,88 @@
      plt.title('Training and validation loss') 
      plt.legend() 
      plt.show()
+     
+     # 이 경우는 시계열 데이터를 펼쳐 입력데이터가 시간개념을 잃어버림 -> 순서가 의미있는 시퀀스 데이터 그대로 사용
+     # LSTM -> GRU
+     ```
+
+  5. 시퀀스 데이터 그대로 다시 모델 구성
+
+     ```python
+     from keras.models import Sequential
+     from keras import layers 
+     from tensorflow.keras.optimizers import RMSprop 
+     
+     model = Sequential() 
+     model.add(layers.GRU(32, input_shape=(None, float_data.shape[-1])))
+     model.add(layers.Dense(1)) 
+     
+     model.compile(optimizer=RMSprop(), loss='mae')
+     
+     history = model.fit_generator(train_gen, 
+                                   steps_per_epoch=500, 
+                                   epochs=20, 
+                                   validation_data=val_gen, 
+                                   validation_steps=val_steps)
+     ```
+
+  6. 그래프 확인
+
+     ```python
+     import matplotlib.pyplot as plt 
+     
+     loss = history.history['loss']
+     val_loss = history.history['val_loss'] 
+     
+     epochs = range(1, len(loss) + 1)
+     
+     plt.figure() 
+     
+     plt.plot(epochs, loss, 'bo', label='Training loss')
+     plt.plot(epochs, val_loss, 'b', label='Validation loss')
+     plt.title('Training and validation loss') 
+     plt.legend() 
+     plt.show()
+     ```
+
+  7. Dropout mask 적용 모델 구성
+
+     ```python
+     # 모든 타임스텝에 동일한 드롭아웃 마스크 적용하여 학습오차 적절하게 전파
+     #overfitting 문제 해결을 위해 매번 드롭아웃을 일정하게 줌
+     
+     model = Sequential()
+     model.add(layers.GRU(32,
+                          dropout=0.2, 
+                          recurrent_dropout=0.2, 
+                          input_shape=(None, float_data.shape[-1])))
+     model.add(layers.Dense(1))
+     
+     model.compile(optimizer=RMSprop(), loss='mae')
+     
+     history = model.fit_generator(train_gen, 
+                                   steps_per_epoch=500, 
+                                   epochs=40, 
+                                   validation_data=val_gen, 
+                                   validation_steps=val_steps)
+     ```
+
+  8. 그래프 확인
+
+     ```python
+     loss = history.history['loss']
+     val_loss = history.history['val_loss'] 
+     
+     epochs = range(1, len(loss) + 1)
+     
+     plt.figure() 
+     
+     plt.plot(epochs, loss, 'bo', label='Training loss')
+     plt.plot(epochs, val_loss, 'b', label='Validation loss')
+     plt.title('Training and validation loss') 
+     plt.legend() 
+     plt.show()
      ```
 
      
-
-
 
