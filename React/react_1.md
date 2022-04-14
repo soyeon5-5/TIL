@@ -25,5 +25,11 @@
 
 ---
 
-## App 사용
+## App 기초 설명
 
+- vscode 를 사용하여 수정
+- gitgnore로 github와 연결가능(교육 마지막에 연결할 예정)
+- cmd의 reacapp폴더에서 npm start로 해당 페이지 확인
+- App.js가 가장 바깥인 돔 구조로 생각
+- vscode내 추가로 확장자 설치해서 기능 사용가능(ex. alt+shift+f 눌러서 깔끔하게 정리 도와줌-키는 기본으로 되어있지만, 이미 해당 키에 설정값이 있으면 설정에서 수정 : 설정은 alt+shift+p)
+- js 파일 시작에서 ```import React, { Component } from "react";``` 와 마지막에 ```export default App;``` 를 입력
